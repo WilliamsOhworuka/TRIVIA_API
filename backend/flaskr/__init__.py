@@ -136,7 +136,7 @@ def create_app(test_config=None):
     @app.route('/categories/<int:category_id>/questions')
     def get_category_questions(category_id):
         (questions, total_questions) = paginate_questions(
-            request, Question.query.filter(Question.category == category_id).order_by(Question.id).all())
+            request, Question.query.filter(Question.category == str(category_id)).order_by(Question.id).all())
 
         if len(questions) == 0:
             abort(404)
@@ -201,13 +201,13 @@ def create_app(test_config=None):
             'message': 'bad request'
         }), 400
 
-    @app.errorhandler(425)
+    @app.errorhandler(405)
     def method_not_allowed(error):
         return jsonify({
             'success': False,
-            'error': 425,
+            'error': 405,
             'message': 'Method Not Allowed'
-        }), 425
+        }), 405
 
     @app.errorhandler(500)
     def server_error(error):

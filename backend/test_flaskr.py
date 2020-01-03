@@ -35,9 +35,13 @@ class TriviaTestCase(unittest.TestCase):
             'quiz_category': {'type': "Science", 'id': "1"}
         }
         self.exhausted_quiz_info = {
-            'previous_questions': [20, 21, 22],
+            'previous_questions': [20, 21, 22, 24],
             'quiz_category': {'type': "Science", 'id': "1"}
         }
+
+        question = Question(question='who is james rice',
+                            answer='no one', difficulty=1, category="2")
+        question.insert()
         # binds the app to the current context
         with self.app.app_context():
             self.db = SQLAlchemy()
